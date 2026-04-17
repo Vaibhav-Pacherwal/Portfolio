@@ -26,10 +26,12 @@ app.post("/api/v1/location/update", async (req, res) => {
     try {
         const { latitude, longitude } = req.body;
 
-        await Location.create({
-            latitude: latitude,
-            longitude: longitude
-        });
+        if(latitude !== null && longitude != null) {
+            await Location.create({
+                latitude: latitude,
+                longitude: longitude
+            });
+        }
 
         res.redirect("/");
 
